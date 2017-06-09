@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$ORGANIZATION}{$CMS_NAME}</title>
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/main.css?sfsdf">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">{$ORGANIZATION}{$CMS_NAME}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/duty">{$DUTY}</a></li>
+                <li><a href="/schedule">{$SCHEDULE}</a></li>
+                {if $isLogin == true || $SHOW_INFOS == 'true'}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">人员信息 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/info">全部</a></li>
+                        {volist name="grade" id="gr"}
+                        <li><a href="/info?grade={$gr.grade}">{$gr.grade}级</a></li>
+                        {/volist}
+                    </ul>
+                </li>
+                {/if}
+                <!--<li><a href="/statistics">人员统计</a></li>-->
+                <li><a href="/go">活动</a></li>
+                {if $isLogin == true || $RECORDING == 'true'}
+                <li><a href="/record">人员登记</a></li>
+                {/if}
+                {if $isLogin == true}
+                <li><a href="/config">设置</a></li>
+                {/if}
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="查询人员信息">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                {if condition="$isLogin == true"}
+                <p class="navbar-text"><a href="/logout" class="navbar-link">退出</a></p>
+                {else /}
+                <p class="navbar-text"><a href="/login" class="navbar-link">管理员登录</a></p>
+                {/if}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,52 @@
+<div class="center-block" style="width: 400px">
+    <h3 class="text-center">{$ORGANIZATION}人员信息登记</h3>
+    <br>
+    <form action="/record" method="post">
+        <div class="input-group">
+            <span class="input-group-addon">学号</span>
+            <input name="idcard" type="text" class="form-control" placeholder="学号不加2" required>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">姓名</span>
+            <input name="name" type="text" class="form-control" placeholder="" required>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">性别</span>
+            <select name="gender" class="form-control">
+                <option value="0">女</option>
+                <option value="1">男</option>
+            </select>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">学院</span>
+            <select name="college" class="form-control">
+                {volist name="college" id="co"}
+                <option value="{$co.college_code}">{$co.college_name}</option>
+                {/volist}
+            </select>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">手机</span>
+            <input name="tel" type="text" class="form-control" placeholder="" required>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">部门</span>
+            <select name="depart" class="form-control">
+                <option value="jsb">技术部</option>
+                <option value="yjb">硬件部</option>
+                <option value="cbb">采编部</option>
+                <option value="msb">秘书部</option>
+            </select>
+        </div>
+        <br>
+        <div class="input-group center-block text-center">
+            <button type="reset" class="btn btn-lg btn-default">清空</button>
+            <button type="submit" class="btn btn-lg btn-primary">提交</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,413 @@
+<style>
+    tr > td {
+        vertical-align: middle !important;
+    }
+</style>
+<table class="table table-striped table-hover text-center">
+    <thead style="font-size: 1.2em">
+    <td>学号</td>
+    <!--<td>PHOTO</td>-->
+    <td>姓名</td>
+    <td>性别</td>
+    <td>年级</td>
+    <td>学院</td>
+    <td>部门</td>
+    <td>电话</td>
+    <td>课表信息</td>
+    {if $isLogin == true}
+    <td>操作</td>
+    {/if}
+    </thead>
+    <tbody>
+    {volist name="info" id="user"}
+    <tr>
+        <td>{$user.idcard}</td>
+        <!--<td><img height="80px" src="{$user.photo}"></td>-->
+        <td>{$user.name}</td>
+        <td>{$user.gender==1?'男':'女'}</td>
+        <td>{$user.grade}</td>
+        <td>{$college[$user.college]}</td>
+        <td>{$department[$user.depart]}</td>
+        <td>{$user.tel}</td>
+        <td>
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myShowS"
+                    data-show-schedule="{$user.idcard}">查看课表
+            </button>
+            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myChanS"
+                    data-change-schedule="{$user.idcard}">修改课表
+            </button>
+        </td>
+        {if $isLogin == true}
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" data-del-user="{$user.idcard}">删除人员</button>
+        </td>
+        {/if}
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+<!-- Modal：查看课表 -->
+<div class="modal fade" id="myShowS" tabindex="-1" role="dialog" aria-labelledby="myShowSLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myShowSLabel">查看课表</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <td>时间</td>
+                    <td>周一</td>
+                    <td>周二</td>
+                    <td>周三</td>
+                    <td>周四</td>
+                    <td>周五</td>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>第一节<br>(8:00-9:40)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>第二节<br>(10:20-12:00)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>第三节<br>(14:00-15:40)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>第四节<br>(16:20-18:00)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>第五节<br>(18:40-20:20)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>第六节<br>(20:40-22:00)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal：修改课表 -->
+<div class="modal fade" id="myChanS" tabindex="-1" role="dialog" aria-labelledby="myChanSLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myChanSLabel">修改课表</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover" data-schedule-select>
+                    <thead>
+                    <td>时间</td>
+                    <td>周一</td>
+                    <td>周二</td>
+                    <td>周三</td>
+                    <td>周四</td>
+                    <td>周五</td>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>第一节<br>(8:00-9:40)</td>
+                        <td>
+                            <select name="mon1">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="tue1">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="wed1">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="thu1">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="fri1">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>第二节<br>(10:20-12:00)</td>
+                        <td>
+                            <select name="mon2">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="tue2">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="wed2">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="thu2">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="fri2">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>第三节<br>(14:00-15:40)</td>
+                        <td>
+                            <select name="mon3">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="tue3">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="wed3">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="thu3">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="fri3">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>第四节<br>(16:20-18:00)</td>
+                        <td>
+                            <select name="mon4">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="tue4">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="wed4">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="thu4">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="fri4">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>第五节<br>(18:40-20:20)</td>
+                        <td>
+                            <select name="mon5">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="tue5">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="wed5">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="thu5">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="fri5">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>第六节<br>(20:40-22:00)</td>
+                        <td>
+                            <select name="mon6">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="tue6">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="wed6">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="thu6">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="fri6">
+                                <option value="0">没课</option>
+                                <option value="1" selected>有课</option>
+                                <option value="2">双周有课</option>
+                                <option value="3">单周有课</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-sava-schedule>Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

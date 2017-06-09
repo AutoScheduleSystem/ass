@@ -1,0 +1,58 @@
+<div class="col-md-6 center-block" style="float: none;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">五峰山烧烤</h3>
+        </div>
+        <div class="panel-body">
+            <pre style="background: none;border: none">
+时间：2017-5-13 本周六
+地点：济南五峰山
+交通：包车
+费用：网站全包
+介绍：周六上午<time>8:00</time>南院天桥下准时集合，提前来别迟到。
+     中午烧烤，吃一大堆肉肉，→_→ 下午可选择爬山，<del>或跳绳</del>。
+     下午<time>3:15</time>开始返校。
+
+     去的同学下方报名↓↓↓  ٩( •̀㉨•́ )و
+
+     <del>敢重复提交打死</del>
+            </pre>
+        </div>
+    </div>
+
+    <!--<form action="/go" method="post">-->
+    <div class="input-group">
+        <input id="你瞅啥" type="text" class="form-control" placeholder="报名请填写姓名，勿重复提交" name="name">
+        <span class="input-group-btn"><button id="瞅你咋滴" class="btn btn-default" type="submit">Go!</button></span>
+    </div>
+    <!--</form>-->
+</div>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    var 话 = [
+        '打死！',
+        '作？！',
+        '你完了！',
+        '你被拖出去续了',
+        '你的时间不多了 -1s',
+        '你已经死了',
+    ], 次数 = 0, 死 = 4;
+
+    $('#瞅你咋滴').click(function () {
+        var 姓名 = $('#你瞅啥').val().trim();
+        if (姓名 == '') return;
+        $.ajax({
+            url: 'go',
+            type: 'post',
+            data: {'name': 姓名},
+            success: function () {
+                alert('报名成功');
+                location.href = 'go';
+            },
+            error: function (e) {
+                alert(话[次数++]);
+                (次数 > 死 + 1) && (次数 = 死 + 1);
+            }
+        })
+    })
+</script>
