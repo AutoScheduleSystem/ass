@@ -2,7 +2,6 @@
 !.htaccess
 composer.phar
 composer.lock
-/vendor/
 /runtime/
 .idea/
 .DS_Store
