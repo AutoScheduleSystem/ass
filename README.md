@@ -17,6 +17,9 @@ Also you can use ```php -S localhost:8888 public/router.php``` to quick test.
 
 > For more documentation, please refer to [ThinkPHP5 Documentation](http://www.kancloud.cn/manual/thinkphp5)
 
+## Core algorithm
+
+
 
 ## Demo
 
