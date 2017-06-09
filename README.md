@@ -14,6 +14,7 @@ We believe that technology can change life, also can change the way you manage s
 Also you can use ```php -S localhost:8888 public/router.php``` to quick test.
 
 > Requires at least PHP5.4
+
 > For more documentation, please refer to [ThinkPHP5 Documentation](http://www.kancloud.cn/manual/thinkphp5)
 
 
