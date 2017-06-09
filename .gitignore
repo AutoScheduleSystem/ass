@@ -2,7 +2,7 @@
 !.htaccess
 composer.phar
 composer.lock
-/runtime/
+/runtime/*
 .idea/
 .DS_Store
 database.php
