@@ -36,6 +36,14 @@ Thank you for considering contributing to the ASS! Just fork and pull request. I
 If you discover a security vulnerability within ASS, please send an e-mail to Xiaonan Ji at jxn2014@gmail.com. All security vulnerabilities will be promptly addressed.
 
 
-# License
+## License
 
 The ASS is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## TODO
+[Todo List](https://github.com/itibbers/ass/blob/master/TODO.md)
+
+
+
+喜欢的请点赞打赏关注丢硬币丢香蕉给我们~
+右上角```Star```  么么哒~
