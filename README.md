@@ -7,8 +7,8 @@ We believe that technology can change life, also can change the way you manage s
 ## Installing
 
 * git clone to your web server.
-* ```mv application/database.simple.php application/database.php```
-* config your database infomation.
+* ```sh install.sh```
+* Manually config your database information to ```./application/database.php```.
 * over.
 
 Also you can use ```php -S localhost:8888 public/router.php``` to quick test.
@@ -18,7 +18,7 @@ Also you can use ```php -S localhost:8888 public/router.php``` to quick test.
 > For more documentation, please refer to [ThinkPHP5 Documentation](http://www.kancloud.cn/manual/thinkphp5)
 
 ## Core algorithm
-
+Later sup.
 
 
 ## Demo
@@ -33,7 +33,7 @@ Thank you for considering contributing to the ASS! Just fork and pull request. I
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within ASS, please send an e-mail to Xiaonan Ji at jxn2014@gmail.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within ASS, please send an e-mail to Xiaonan Ji(jxn2014@gmail.com). All security vulnerabilities will be promptly addressed.
 
 
 ## License
@@ -46,4 +46,4 @@ The ASS is open-sourced software licensed under the [MIT license](http://opensou
 
 
 喜欢的请点赞打赏关注丢硬币丢香蕉给我们~
-右上角```Star```  么么哒~
+右上角 ```Star```  么么哒~
