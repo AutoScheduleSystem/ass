@@ -1,22 +1,19 @@
-<style>
-    tr > td {
-        vertical-align: middle !important;
-    }
-</style>
-<table class="table table-striped table-hover text-center">
+<table class="table table-striped table-hover text-center sortable">
     <thead style="font-size: 1.2em">
-    <td>学号</td>
-    <!--<td>PHOTO</td>-->
-    <td>姓名</td>
-    <td>性别</td>
-    <td>年级</td>
-    <td>学院</td>
-    <td>部门</td>
-    <td>电话</td>
-    <td>课表信息</td>
-    {if $isLogin == true}
-    <td>操作</td>
-    {/if}
+    	<tr>
+		    <th>学号</th>
+		    <!--<th>PHOTO</th>-->
+		    <th>姓名</th>
+		    <th>性别</th>
+		    <th>年级</th>
+		    <th>学院</th>
+		    <th>部门</th>
+		    <th>电话</th>
+		    <th>课表信息</th>
+		    {if $isLogin == true}
+		    <th>操作</th>
+		    {/if}
+    	</tr>
     </thead>
     <tbody>
     {volist name="info" id="user"}
