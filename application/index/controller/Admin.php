@@ -4,7 +4,6 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Db;
-use think\image\Exception;
 use think\Request;
 use think\Session;
 
@@ -73,7 +72,10 @@ class Admin extends Controller
                 'college' => Request::instance()->post('college'),
                 'tel' => Request::instance()->post('tel'),
                 'depart' => Request::instance()->post('depart'),
+                'record_ip' => Tool::getIP(),
+                'record_agent' => Tool::getAgent(),
             ];
+            var_dump($data);
             // 开启事务
             Db::startTrans();
             try {

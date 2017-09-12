@@ -2,11 +2,9 @@
 
 namespace app\index\controller;
 
-use phpDocumentor\Reflection\Types\Integer;
 use think\config\driver\Json;
 use think\Controller;
 use think\Db;
-use think\image\Exception;
 use think\Loader;
 use think\Request;
 use think\Session;
@@ -403,6 +401,8 @@ class Index extends Controller
                 'college' => Request::instance()->post('college'),
                 'tel' => Request::instance()->post('tel'),
                 'depart' => Request::instance()->post('depart'),
+                'record_ip' => Tool::getIP(),
+                'record_agent' => Tool::getAgent(),
             ];
             // 开启事务
             Db::startTrans();
