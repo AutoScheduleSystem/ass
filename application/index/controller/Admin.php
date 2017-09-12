@@ -179,14 +179,13 @@ class Admin extends Controller
             $empSch[$i] = array_values($empSch[$i]); // 列 关联数组变为索引数组
             $rank[$i] = [];
             $psum[$i] = [];
-//            $rank[$i][0] = $empSch[$i][0]; // 节id  2017-5-3更新: 不要节
             array_splice($empSch[$i], 0, 1);
             for ($j = 0; $j < sizeof($empSch[$i]); $j++) { // 周一到周五
                 $this->strtoarr($empSch[$i][$j]); // string to array
                 $rank[$i][$j] = [];
                 $psum[$i][$j] = sizeof($empSch[$i][$j]); // 初始化人员数
-                for ($e = 0; $e < sizeof($empSch[$i][$j]); $e++) {
-                    //rank[节][周][第n个人]
+                for ($e = 0; $e < $psum[$i][$j]; $e++) {
+                    //格式：rank[节][周][第n个人]
                     $rank[$i][$j][$e] = 0; // 初始化人员rank为0
                 }
             }
@@ -197,7 +196,7 @@ class Admin extends Controller
          *      获取数据
          *      处理数据：$empSch, $rank, $psum
          *      按人数排序数组
-         *      按顺序回溯处理每组
+         *      按顺序处理每组
          */
 
 
@@ -217,12 +216,14 @@ class Admin extends Controller
         $this->submitDuty($sch);
     }
 
+    // 字符串转数组
     public function strtoarr(&$str)
     {
         $str = explode(',', $str);
         return $str;
     }
 
+    // 数组转字符串
     public function arrtostr(&$arr)
     {
         $arr = implode(',', $arr);
@@ -239,7 +240,7 @@ class Admin extends Controller
      * @param $psum 每个格子的人员数 sizeof($empSch[$i][$j])
      * @param $sch 返回的值班表
      */
-    public function solve($s, $w, $empSch, &$rank, $psum, &$sch)
+    public function solve1($s, $w, $empSch, &$rank, $psum, &$sch)
     {
         // s:0-3 w:s,1-5
         if ($s > 3 && $w > 5) {
@@ -268,8 +269,8 @@ class Admin extends Controller
     /**
      * @param $s = 4 节
      * @param $w = 5 天
-     * @param $empSch
-     * @param $rank
+     * @param $empSch 空课表
+     * @param $rank rank表
      * @param $psum
      * @param $sch 结果集
      */
@@ -286,7 +287,15 @@ class Admin extends Controller
         }
     }
 
-    // 优先级
+    /**
+     * 优先级rank排班算法
+     * @param $s = 4 节
+     * @param $w = 5 天
+     * @param $empSch 空课表
+     * @param $rank rank表
+     * @param $psum 人员数二维数组
+     * @param $sch 结果集
+     */
     public function solve3($s, $w, $empSch, &$rank, $psum, &$sch)
     {
         $sorti = [];  // index of every box 位置
@@ -296,7 +305,7 @@ class Admin extends Controller
         for ($i = 0; $i < $s; $i++) {
             for ($j = 0; $j < $w; $j++) {
                 $sorti[$k] = $k;
-                $newPsum[$k] = $psum[$i][$j];   // psum 二维数组转一维数组
+                $newPsum[$k] = $psum[$i][$j];   // psum 二维数组转一维数组！
                 $k++;
             }
         }
@@ -305,7 +314,8 @@ class Admin extends Controller
 //        echo "<br>";
 //        print_r($sorti);
 //        echo "<br>";
-        // 按人数排序，人数少的值班段优先安排
+
+        // 按人数把所有box排序，人数少的值班段优先安排
         array_multisort($newPsum, $sorti);
 
 //        log("newPsum", $newPsum);
@@ -319,14 +329,13 @@ class Admin extends Controller
         }
 
         for ($i = 0; $i < sizeof($sorti); $i++) {
-            $p = $sorti[$i];
-            $mans = $empSch[$p / $w][$p % $w];  // 该值班段所有人
+            $p = $sorti[$i]; // 实际box位置
+            $mans = $empSch[$p / $w][$p % $w];  // 该值班段所有人(星期，节)
             // step 1. 安排值班
             // step 2. 删除其它值班段值班人员 或 依据rank值排序再安排
             if (sizeof($mans) > 0) {
                 // 冒泡排序：按rank值对该值班段人按rank小到大排序
                 for ($s = 0; $s < sizeof($mans); $s++) {
-//                    if ($rank[$mans[$s]] < size)
                     for ($y = $s + 1; $y < sizeof($mans); $y++) {
                         if ($rank[$mans[$s]] > $rank[$mans[$y]]) {
                             $tmp = $mans[$s];
@@ -336,11 +345,11 @@ class Admin extends Controller
                     }
                 }
 
-                // shuffle($mans);
+                // shuffle($mans); // 随机排序
                 $sch[$p] = array_slice($mans, 0, $this->sysconfig['SCH_NUM']);    // 取两个值班人员，安排值班
-                // 更新rank
-                (sizeof($sch[$p]) > 0) && $rank[$sch[$p][0]]++;
-                (sizeof($sch[$p]) > 1) && $rank[$sch[$p][1]]++;
+
+                @(sizeof($sch[$p]) > 0) && @$rank[$sch[$p][0]]++;
+                @(sizeof($sch[$p]) > 1) && @$rank[$sch[$p][1]]++;
             }
         }
         ksort($sch);
@@ -371,7 +380,7 @@ class Admin extends Controller
         $data = [];
         for ($i = 0; $i < sizeof($sch); $i++) {
             for ($j = 0;$j<sizeof($sch[$i]);$j++){
-                $sch[$i][$j] = $users[$sch[$i][$j]];
+                @$sch[$i][$j] = $users[$sch[$i][$j]];
             }
             $data[$i] = $this->arrtostr($sch[$i]);
         }
