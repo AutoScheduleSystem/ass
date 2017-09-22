@@ -35,7 +35,9 @@
                 <li><a href="/schedule">{$SCHEDULE}</a></li>
                 {if $isLogin == true || $SHOW_INFOS == 'true'}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">人员信息 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        人员信息 <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="/info">全部</a></li>
                         {volist name="grade" id="gr"}
