@@ -147,7 +147,8 @@
     // Info页面搜索
     $('#filter-text').keyup(function() {
         var txt = $('#filter-text').val();
-        $("table tbody tr")
+        var filterId = $('#filter-text').attr('data-filter-target');
+        $("table[data-filter-id=" + filterId + "] tbody tr")
             .hide()
             .filter(":contains('" + txt + "')")
             .show();
