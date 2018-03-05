@@ -79,17 +79,23 @@ class Admin extends Controller
             // 开启事务
             Db::startTrans();
             try {
-                // 插入用户
-                $query = Db::table('users')->insert($data);
-                // 生成默认课表
-                $userId = Db::name('users')->getLastInsID();
-                Db::table('schedule')->insert(['uid' => $userId]);
-                if ($query) {
-                    Db::commit();
-                    return $this->success('登记成功！');
+                // 先判断用户是否已存在
+                if (!Db::table('users')->where('idcard', $data['idcard'])->find())
+                {
+                    // 插入用户
+                    $query = Db::table('users')->insert($data);
+                    // 生成默认课表
+                    $userId = Db::name('users')->getLastInsID();
+                    Db::table('schedule')->insert(['uid' => $userId]);
+                    if ($query) {
+                        Db::commit();
+                        return $this->success('登记成功！');
+                    } else {
+                        Db::rollback();
+                        return $this->error('系统错误！');
+                    }
                 } else {
-                    Db::rollback();
-                    return $this->error('系统错误！');
+                    return $this->error('用户名已存在!');
                 }
             } catch (Exception $e) {
                 Db::rollback();
