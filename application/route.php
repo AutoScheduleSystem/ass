@@ -18,25 +18,33 @@ return [
         'month' => '\d{2}',
         'password' => '[a-zA-Z0-9_-]{6-18}',
     ],
-    'admin' => function () {
+
+    // Test
+    'idCard' => function () {
         return substr("220141222032", -11);
     },
+    'test' => 'index/Test/index',
+
+    // API
     '[api]' => [
-        'schedule/[:idcard]' => 'index/Index/getSchedule',
-        'updateSchedule' => 'index/Index/updateSchedule',
-        'del/[:idcard]' => 'index/Admin/delUser',
-        'generate' => 'index/Admin/generate',
-        'updateConfig/[:name]/[:content]' => 'index/Admin/updateConfig',
+        'schedule/[:idcard]' => 'index/Schedule/getByIdCard',
+        'updateSchedule' => 'index/Schedule/update',
+        'del/[:idcard]' => 'index/Info/delUser',
+        'generate' => 'index/Settings/generate',
+        'updateConfig/[:name]/[:content]' => 'index/Settings/update',
     ],
-    'duty' => 'index/Index/duty',
-    'schedule' => 'index/Index/schedule',
-    'info' => 'index/Index/info',
-    'statistics' => 'index/Index/statistics',
+
+    // Pages
+    'duty' => 'index/Duty',
+    'schedule' => 'index/Schedule',
+    'info' => 'index/Info',
+    'go' => 'index/Activity/index',
+    'goList' => 'index/Activity/goList',
+    'record' => 'index/Record',
+    'statistics' => 'index/Statistics',
+    'config' => 'index/Settings',
+
+    // Auth
     'login' => 'index/Index/login',
     'logout' => 'index/Index/logout',
-    'record' => 'index/Index/record',
-    'go' => 'index/Index/go',
-    'golist' => 'index/Index/golist',
-
-    'config' => 'index/Admin/config',
 ];

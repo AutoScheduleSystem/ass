@@ -7,7 +7,7 @@ use think\Db;
 use think\Request;
 use think\Session;
 
-class Admin extends Controller
+class Admin extends MyController
 {
     public $sysconfig = [];
     public $isLogin = false;
@@ -31,10 +31,14 @@ class Admin extends Controller
 
         $this->isLogin = $this->checkLogin();
         $this->assign('isLogin', $this->isLogin);
-        if (!$this->isLogin) {
+        $this->auth();
+    }
+
+    public function auth()
+    {
+        if (!$this->checkLogin()) {
             $this->redirect('/login');
         }
-
     }
 
     // 检查是否登录
@@ -72,16 +76,15 @@ class Admin extends Controller
                 'college' => Request::instance()->post('college'),
                 'tel' => Request::instance()->post('tel'),
                 'depart' => Request::instance()->post('depart'),
-                'record_ip' => Tool::getIP(),
-                'record_agent' => Tool::getAgent(),
+                'record_ip' => Utils::getIP(),
+                'record_agent' => Utils::getAgent(),
             ];
             var_dump($data);
             // 开启事务
             Db::startTrans();
             try {
                 // 先判断用户是否已存在
-                if (!Db::table('users')->where('idcard', $data['idcard'])->find())
-                {
+                if (!Db::table('users')->where('idcard', $data['idcard'])->find()) {
                     // 插入用户
                     $query = Db::table('users')->insert($data);
                     // 生成默认课表
@@ -387,7 +390,7 @@ class Admin extends Controller
 
         $data = [];
         for ($i = 0; $i < sizeof($sch); $i++) {
-            for ($j = 0;$j<sizeof($sch[$i]);$j++){
+            for ($j = 0; $j < sizeof($sch[$i]); $j++) {
                 @$sch[$i][$j] = $users[$sch[$i][$j]];
             }
             $data[$i] = $this->arrtostr($sch[$i]);

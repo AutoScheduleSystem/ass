@@ -401,8 +401,8 @@ class Index extends Controller
                 'college' => Request::instance()->post('college'),
                 'tel' => Request::instance()->post('tel'),
                 'depart' => Request::instance()->post('depart'),
-                'record_ip' => Tool::getIP(),
-                'record_agent' => Tool::getAgent(),
+                'record_ip' => Utils::getIP(),
+                'record_agent' => Utils::getAgent(),
             ];
             // 开启事务
             Db::startTrans();
