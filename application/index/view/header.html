@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{$ORGANIZATION}{$CMS_NAME}</title>
+    <title>{$sysconfig['ORGANIZATION']}{$sysconfig['CMS_NAME']}</title>
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/bootstrap-sortable.css" rel="stylesheet">
     <link href="static/css/main.css" rel="stylesheet">
@@ -25,15 +25,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">{$ORGANIZATION}{$CMS_NAME}</a>
+            <a class="navbar-brand" href="/">{$sysconfig['ORGANIZATION']}{$sysconfig['CMS_NAME']}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/duty">{$DUTY}</a></li>
-                <li><a href="/schedule">{$SCHEDULE}</a></li>
-                {if $isLogin == true || $SHOW_INFOS == 'true'}
+                <li><a href="/duty">{$sysconfig['DUTY']}</a></li>
+                <li><a href="/schedule">{$sysconfig['SCHEDULE']}</a></li>
+                {if $isLogin == true || $sysconfig['SHOW_INFOS'] == 'true'}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
                         人员信息 <span class="caret"></span>
@@ -47,12 +47,12 @@
                 </li>
                 {/if}
                 <!--<li><a href="/statistics">人员统计</a></li>-->
-                <li><a href="/go">活动</a></li>
-                {if $isLogin == true || $RECORDING == 'true'}
+                <li><a href="/activity">活动</a></li>
+                {if $isLogin == true || $sysconfig['RECORDING'] == 'true'}
                 <li><a href="/record">人员登记</a></li>
                 {/if}
                 {if $isLogin == true}
-                <li><a href="/config">设置</a></li>
+                <li><a href="/settings">设置</a></li>
                 {/if}
             </ul>
             <ul class="nav navbar-nav navbar-right">

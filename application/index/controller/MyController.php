@@ -23,7 +23,7 @@ class MyController extends Controller
         foreach ($query as $e) {
             $this->sysconfig[$e['name']] = $e['content'];
         }
-        $this->assign($this->sysconfig);
+        $this->assign('sysconfig', $this->sysconfig);
         // 取得年级列表
         $grade = Db::table('users')->distinct(true)->field('grade')->order('grade')->select();
         $this->assign('grade', $grade);

@@ -23,7 +23,7 @@ class Settings extends MyController
 
     public function index()
     {
-        return $this->fetch('config');
+        return $this->fetch('settings');
     }
 
     // 更新配置
@@ -176,6 +176,8 @@ class Settings extends MyController
     /**
      * 提交值班表数据
      * @param $sch
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function submitDuty($sch)
     {

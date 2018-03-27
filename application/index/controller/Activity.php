@@ -22,7 +22,7 @@ class Activity extends MyController
             $name = htmlspecialchars($name);
             Db::table('go')->insert(['name' => $name]);
         }
-        return $this->fetch('go');
+        return $this->fetch('activity');
     }
 
     public function goList()

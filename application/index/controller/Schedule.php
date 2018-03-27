@@ -18,13 +18,10 @@ class Schedule extends MyController
     public function index()
     {
         // 用户表，返回 id-name
-        $usersList = Db::table('users')->where('status', '1')->column('name', 'id');
-        $users = [];
-        for ($i = 0; $i < sizeof($usersList); $i++) {
-            $users[$usersList[$i]['id']] = $usersList[$i]['name'];
-        }
+        $users = Db::table('users')->where('status', '1')->column('name', 'id');
+
         // 空课表
-        $empSch = Db::table('empty_schedule')->column('mon', 'tue', 'wed', 'thu', 'fri');
+        $empSch = Db::table('empty_schedule')->field('mon,tue,wed,thu,fri')->select();
         for ($i = 0; $i < sizeof($empSch); $i++) {
             $empSch[$i] = array_values($empSch[$i]);
             for ($j = 0; $j < sizeof($empSch[$i]); $j++) {

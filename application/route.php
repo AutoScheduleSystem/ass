@@ -23,7 +23,7 @@ return [
     'idCard' => function () {
         return substr("220141222032", -11);
     },
-    'test' => 'index/Test/index',
+    'test' => 'Test',
 
     // API
     '[api]' => [
@@ -35,16 +35,16 @@ return [
     ],
 
     // Pages
-    'duty' => 'index/Duty',
-    'schedule' => 'index/Schedule',
-    'info' => 'index/Info',
-    'go' => 'index/Activity/index',
-    'goList' => 'index/Activity/goList',
-    'record' => 'index/Record',
-    'statistics' => 'index/Statistics',
-    'config' => 'index/Settings',
+    'duty' => 'Duty/index',
+    'schedule' => 'Schedule/index',
+    'info' => 'Info/index',
+    'activity' => 'Activity/index',
+    'goList' => 'Activity/goList',
+    'record' => 'Record/index',
+    'statistics' => 'Statistics/index',
+    'settings' => 'Settings/index',
 
     // Auth
-    'login' => 'index/Index/login',
-    'logout' => 'index/Index/logout',
+    'login' => 'Auth/login',
+    'logout' => 'Auth/logout',
 ];
